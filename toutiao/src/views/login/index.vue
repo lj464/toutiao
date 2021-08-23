@@ -1,7 +1,14 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="登录" />
+ 
+   <van-nav-bar class="page-nav-bar" title="登录" >
+     <van-icon 
+      slot="left"
+      name="cross"
+      @click="$router.back()"
+     />
+    </van-nav-bar>
     <!-- /导航栏 -->
 
     <!-- 登录表单 -->
@@ -100,7 +107,8 @@ export default {
     async onSubmit() {
       let data = this.user;
       this.$toast.loading({
-        duration: 0, // 持续展示 toast
+        duration: 0,
+        // 时间wei0
         message: "登录中...",
         forbidClick: true, // 是否禁止背景点击
       });
@@ -108,7 +116,7 @@ export default {
         let res = await login(data);
         if (res.status === 201) {
           this.$toast.success("登录成功");
-          console.log(res.data.data);
+          this.$router.back()
           this.$store.commit("setUser", res.data.data);
         }
       } catch (err) {
@@ -154,6 +162,10 @@ export default {
       background-color: #6db4fb;
       border: none;
     }
+  }
+  .page-nav-bar {
+    background-color: #6db4fb;
+    color: #fff;
   }
 }
 </style>
