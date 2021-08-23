@@ -4,12 +4,7 @@
     <div v-if="user" class="header user-info">
       <div class="base-info">
         <div class="left">
-          <van-image
-            class="avatar"
-            :src="userInfo.photo"
-            round
-            fit="cover"
-          />
+          <van-image class="avatar" :src="userInfo.photo" round fit="cover" />
           <span class="name">{{ userInfo.name }}</span>
         </div>
         <div class="right">
@@ -40,7 +35,7 @@
     <!-- 未登录头部 -->
     <div v-else class="header not-login">
       <div class="login-btn" @click="$router.push('/login')">
-        <img class="mobile-img" src="~@/assets/mobile.png" alt="">
+        <img class="mobile-img" src="~@/assets/mobile.png" alt="" />
         <span class="text">登录 / 注册</span>
       </div>
     </div>
@@ -72,54 +67,57 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { getUserInfo } from '@/api/user'
+import { mapState } from "vuex";
+import { getUserInfo } from "@/api/user";
 
 export default {
-  name: 'MyIndex',
+  name: "MyIndex",
   components: {},
   props: {},
-  data () {
+  data() {
     return {
-      userInfo: {} // 用户信息
-    }
+      userInfo: {}, 
+    };
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(["user"]),
   },
   watch: {},
-  created () {
+  created() {
     if (this.user) {
-      this.loadUserInfo()
+      this.loadUserInfo();
     }
   },
-  mounted () {},
+  mounted() {},
   methods: {
-    onLogout () {
+    onLogout() {
       // 退出提示
       // 在组件中需要使用 this.$dialog 来调用弹框组件
-      this.$dialog.confirm({
-        title: '确认退出吗？'
-      }).then(() => {
-        // on confirm
-        // 确认退出：清除登录状态（容器中的 user + 本地存储中的 user）
-        this.$store.commit('setUser', null)
-      }).catch(() => {
-        // on cancel
-        console.log('取消执行这里')
-      })
+      this.$dialog
+        .confirm({
+          title: "确认退出吗？",
+        })
+        .then(() => {
+          // on confirm
+          // 确认退出：清除登录状态（容器中的 user + 本地存储中的 user）
+          this.$store.commit("setUser", null);
+        })
+        .catch(() => {
+          // on cancel
+          console.log("取消执行这里");
+        });
     },
 
-    async loadUserInfo () {
+    async loadUserInfo() {
       try {
-        const { data } = await getUserInfo()
-        this.userInfo = data.data
+        const { data } = await getUserInfo();
+        this.userInfo = data.data;
       } catch (err) {
-        this.$toast('获取数据失败，请稍后重试')
+        this.$toast("获取数据失败，请稍后重试");
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped lang="less">

@@ -7,7 +7,7 @@ import '@/styles/index.css'
 import Vue from 'vue'
 import Vant from 'vant'
 import 'amfe-flexible'
-
+import './utils/dayjs'
 
 import 'vant/lib/index'
 

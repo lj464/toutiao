@@ -109,4 +109,8 @@ export default {
   height: 79vh;
   overflow-y: auto;
 }
+.edit-channel-popup {
+  padding-top: 100px;
+	box-sizing: border-box;
+}
 </style>

@@ -12,45 +12,62 @@
       >
     </van-nav-bar>
     <van-tabs v-model="active" swipeable>
-      <van-tab v-for="channel in channels" :key="channel.id" :title="channel.name"> <articleList :channel='channel' /></van-tab>
+      <van-tab
+        v-for="channel in channels"
+        :key="channel.id"
+        :title="channel.name"
+      >
+        <articleList :channel="channel"
+      /></van-tab>
       <div slot="nav-right" class="placehoder"></div>
-      <div slot="nav-right" class="hamburger-btn">
+      <div slot="nav-right" class="hamburger-btn" @click="isEditChannelShow = true">
         <i class="toutiao toutiao-gengduo"> </i>
       </div>
     </van-tabs>
+    <van-popup
+      class="edit-channel-popup"
+      v-model="isEditChannelShow"
+      position="bottom"
+      :style="{ height: '100%' }"
+      closeable
+      close-icon-position="top-left"
+      ><channelEdit /></van-popup
+    >
   </div>
 </template>
 
 <script>
 import { getUserChannels } from "../../api/user";
-import articleList from './components/article-list.vue'
+import channelEdit from './components/channel-edit.vue'
+import articleList from "./components/article-list.vue";
 export default {
   name: "HomeIndex",
   components: {
-    articleList
+    articleList,
+    channelEdit
   },
   props: {},
   data() {
     return {
       active: "",
-      channels:{
-
-      }
+      channels: {},
+      isEditChannelShow: false,
     };
   },
-  computed: {},
+  computed: {
+  },
   watch: {},
   created() {},
   mounted() {
-    this.getUserChannels()
+    this.getUserChannels();
   },
   methods: {
     async getUserChannels() {
       try {
         let res = await getUserChannels();
-        this.channels = res.data.data.channels
+        this.channels = res.data.data.channels;
       } catch (err) {
-        this.$toast('获取频道失败')
+        this.$toast("获取频道失败");
       }
     },
   },
