@@ -17,7 +17,7 @@
         :key="channel.id"
         :title="channel.name"
       >
-        <articleList :channel="channel"
+        <articleList :channel="channel" 
       /></van-tab>
       <div slot="nav-right" class="placehoder"></div>
       <div slot="nav-right" class="hamburger-btn" @click="isEditChannelShow = true">
@@ -31,8 +31,8 @@
       :style="{ height: '100%' }"
       closeable
       close-icon-position="top-left"
-      ><channelEdit /></van-popup
-    >
+      ><channelEdit :myChannels='channels' :active='active' />
+    </van-popup>
   </div>
 </template>
 
