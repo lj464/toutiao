@@ -17,10 +17,14 @@
         :key="channel.id"
         :title="channel.name"
       >
-        <articleList :channel="channel" 
+        <articleList :channel="channel"
       /></van-tab>
       <div slot="nav-right" class="placehoder"></div>
-      <div slot="nav-right" class="hamburger-btn" @click="isEditChannelShow = true">
+      <div
+        slot="nav-right"
+        class="hamburger-btn"
+        @click="isEditChannelShow = true"
+      >
         <i class="toutiao toutiao-gengduo"> </i>
       </div>
     </van-tabs>
@@ -31,20 +35,23 @@
       :style="{ height: '100%' }"
       closeable
       close-icon-position="top-left"
-      ><channelEdit :myChannels='channels' :active='active' />
+      ><channelEdit :myChannels="channels" :active.sync="active" />
     </van-popup>
   </div>
 </template>
 
 <script>
-import { getUserChannels } from "../../api/user";
-import channelEdit from './components/channel-edit.vue'
+import { getUserChannels} from "../../api/user";
+import { getChannels} from "../../api/channels.js";
+import channelEdit from "./components/channel-edit.vue";
 import articleList from "./components/article-list.vue";
+import { mapState } from "vuex";
+import { getItem } from "../../utils/storage";
 export default {
   name: "HomeIndex",
   components: {
     articleList,
-    channelEdit
+    channelEdit,
   },
   props: {},
   data() {
@@ -55,6 +62,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(["isSet", "user"]),
   },
   watch: {},
   created() {},
@@ -63,12 +71,32 @@ export default {
   },
   methods: {
     async getUserChannels() {
-      try {
-        let res = await getUserChannels();
-        this.channels = res.data.data.channels;
-      } catch (err) {
-        this.$toast("获取频道失败");
+      // 登录过
+      if (this.user) {
+        // 操作过
+        if (this.isSet) {
+          this.channels = getItem("toutiao");
+          return;
+        }
+        // 初始化
+        try {
+          let res = await getUserChannels();
+          this.channels = res.data.data.channels;
+        } catch (err) {
+          this.$toast("获取频道失败");
+        }
+      } else {
+        let local = getItem("breakToutiao");
+        if (local) {
+          this.channels = local;
+        } else {
+          const { data } = await getChannels();
+          this.channels = data.data.channels;
+        }
       }
+    },
+    close() {
+      this.isEditChannelShow = false;
     },
   },
 };

@@ -7,8 +7,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 用户的登录状态信息
-    user: getItem(TOKEN)
+    user: getItem(TOKEN),
     // user: null
+    isSet:getItem('isSet')
   },
   mutations: {
     setUser(state, user) {
@@ -18,6 +19,10 @@ export default new Vuex.Store({
     removeTOken(state) {
       state.user = ''
       window.localStorage.removeItem('TOUTIAO_USER')
+    },
+    setIsSet(state){
+      state.isSet = true
+      setItem('isSet',true)
     }
   },
   actions: {},
