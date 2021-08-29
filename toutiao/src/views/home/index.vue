@@ -8,6 +8,7 @@
         size="small"
         round
         icon="search"
+        @click="()=>{this.$router.push('/search')}"
         >搜索</van-button
       >
     </van-nav-bar>
@@ -41,8 +42,7 @@
 </template>
 
 <script>
-import { getUserChannels} from "../../api/user";
-import { getChannels} from "../../api/channels.js";
+import { getUserChannels } from "../../api/user";
 import channelEdit from "./components/channel-edit.vue";
 import articleList from "./components/article-list.vue";
 import { mapState } from "vuex";
@@ -90,7 +90,7 @@ export default {
         if (local) {
           this.channels = local;
         } else {
-          const { data } = await getChannels();
+          const { data } = await getUserChannels();
           this.channels = data.data.channels;
         }
       }
