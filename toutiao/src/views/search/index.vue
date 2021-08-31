@@ -71,7 +71,7 @@ export default {
 
 <style scoped lang='less'>
 .search-container {
-  padding-top: 50px;
+  padding-top: 108px;
   .van-search__action {
     color: #fff;
   }

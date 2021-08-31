@@ -1,21 +1,16 @@
-// module.exports = {
-//   plugins: {
-//     'postcss-pxtorem': {
-//       rootValue ({ file }) {
-//         return file.indexOf('vant') !== -1 ? 37.5 : 75
-//       },
-//       propList: ['*']
-//     }
-//   }
-// }
-module.exports = {
+/**
+ * PostCSS 配置文件
+ */
+
+ module.exports = {
+  // 配置要使用的 PostCSS 插件
   plugins: {
-    'autoprefixer': {
-      browsers: ['Android >= 4.0', 'iOS >= 8']
-    },
     'postcss-pxtorem': {
-      rootValue: 37.5,
-      propList: ['*']
+      rootValue ({ file }) {
+        return file.indexOf('vant') !== -1 ? 37.5 : 75
+      },
+      propList: ['*'],
+      exclude: 'github-markdown'
     }
   }
 }

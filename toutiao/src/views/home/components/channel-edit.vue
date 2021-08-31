@@ -10,11 +10,6 @@
         @click="Editcannel"
         >{{ isEdit ? "完成" : "编辑" }}</van-button
       >
-      <!-- <van-icon
-        v-show="isEdit && !fiexdChannels.includes(channel.id)"
-        slot="icon"
-        name="clear"
-      ></van-icon> -->
     </van-cell>
     <van-grid :gutter="10">
       <van-grid-item
@@ -165,7 +160,7 @@ export default {
   margin-top: 40px;
   .channel-item {
     overflow: hidden;
-    height: 46px;
+    height: 92px;
     /deep/ .van-grid-item__content {
       background-color: #f5f5f6;
       .van-grid-item__text {
@@ -209,6 +204,9 @@ export default {
   .active {
     color: red !important;
   }
+}
+.channel-edit {
+  margin-top: 100px;
 }
 // /deep/.channel-edit .van-grid-item__content .van-grid-item__icon {
 //   font-size: 12px!important;

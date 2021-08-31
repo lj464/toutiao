@@ -167,5 +167,8 @@ export default {
     background-color: #6db4fb;
     color: #fff;
   }
+  /deep/.van-button__text {
+    white-space: nowrap;
+  }
 }
 </style>
