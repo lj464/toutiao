@@ -55,7 +55,9 @@ export default {
   },
   created() {},
   methods: {
-    onCancel() {},
+    onCancel() {
+      this.$router.back()
+    },
     onSearch(val) {
       const index = this.searchHistories.indexOf(val);
       if (index !== -1) {
